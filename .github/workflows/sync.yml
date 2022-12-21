@@ -1,0 +1,23 @@
+on:
+  push:
+    branches:
+      - 'master'
+  pull_request:
+    branches:
+      - 'master'
+
+jobs:
+  sync-chart:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    
+    - run: >
+        https://github.com/CottonAcademy/Crazy-Kubernetes.git
+        rm -rf Crazy-Kubernetes/test
+        cp test Crazy-Kubernetes/
+        cd Crazy-Kubernetes/
+        git commit -t "update ks-core helm chart"
+        gh pr create

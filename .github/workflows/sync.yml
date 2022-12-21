@@ -14,8 +14,8 @@ jobs:
       with:
         fetch-depth: 0
     
-    - run: >
-        https://github.com/CottonAcademy/Crazy-Kubernetes.git
+    - run: |
+        git clone https://github.com/CottonAcademy/Crazy-Kubernetes.git
         rm -rf Crazy-Kubernetes/test
         cp test Crazy-Kubernetes/
         cd Crazy-Kubernetes/

@@ -1,21 +1,23 @@
----
-name: Kubernetes-Auto-Support
-
 on:
-  schedule:
-    - cron: '35 * * * *'
+  push:
+    branches:
+      - 'master'
+  pull_request:
+    branches:
+      - 'master'
 
 jobs:
-  update-kubernetes-version:
+  sync-chart:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
-      - name: install dependiencies
-        run: |
-          wget https://attack-on-titan.gd2.qingstor.com/qsctl/v2.4.3/qsctl_v2.4.3_linux_amd64.tar.gz
-          tar -zxvf qsctl_v2.4.3_linux_amd64.tar.gz
-          mv qsctl_v2.4.3_linux_amd64 /usr/local/bin/qsctl
-          qsctl 
-          
-
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    
+    - run: >
+        https://github.com/CottonAcademy/Crazy-Kubernetes.git
+        rm -rf Crazy-Kubernetes/test
+        cp test Crazy-Kubernetes/
+        cd Crazy-Kubernetes/
+        git commit -t "update ks-core helm chart"
+        gh pr create

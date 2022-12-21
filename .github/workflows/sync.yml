@@ -17,7 +17,7 @@ jobs:
     - run: |
         git clone https://github.com/CottonAcademy/Crazy-Kubernetes.git
         rm -rf Crazy-Kubernetes/test
-        cp test Crazy-Kubernetes/
+        cp -r test Crazy-Kubernetes/
         cd Crazy-Kubernetes/
         git commit -t "update ks-core helm chart"
         gh pr create

@@ -13,30 +13,38 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-  
+
+    - name: Setup SSH
+      uses: MrSquaare/ssh-setup-action@v2
+      with:
+        host: github.com
+        private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
     - run: |
         git config --global user.email "you@example.com"
         git config --global user.name "Your Name"
-        git clone https://github.com/CottonAcademy/Crazy-Kubernetes.git
+        git clone git@github.com:CottonAcademy/Crazy-Kubernetes.git
         rm -rf Crazy-Kubernetes/test
         cp -r test Crazy-Kubernetes/
         cd Crazy-Kubernetes/
         git add .
         git commit -m "update ks-core helm chart"
+        git push origin main:ks-core
 
-    - name: Pushes to another repository
-      uses: cpina/github-action-push-to-another-repository@main
-      env:
-        SSH_DEPLOY_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        API_TOKEN_GITHUB: ${{ github.token }}
-      with:
-        source-directory: 'Crazy-Kubernetes'
-        destination-github-username: 'CottonAcademy'
-        destination-repository-name: 'Crazy-Kubernetes'
-        user-email: ci-bot@kubesphere.io
-        target-branch: ks-core
+    # - name: Pushes to another repository
+    #   uses: cpina/github-action-push-to-another-repository@main
+    #   env:
+    #     SSH_DEPLOY_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+    #     API_TOKEN_GITHUB: ${{ github.token }}
+    #   with:
+    #     source-directory: 'Crazy-Kubernetes'
+    #     destination-github-username: 'CottonAcademy'
+    #     destination-repository-name: 'Crazy-Kubernetes'
+    #     user-email: ci-bot@kubesphere.io
+    #     target-branch: ks-core
 
     - run: |
+        cd Crazy-Kubernetes/
         gh pr create --title "The bug is fixed" --body "Everything works again"
       env:
         GH_TOKEN: ${{ github.token }}

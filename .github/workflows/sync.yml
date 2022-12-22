@@ -21,5 +21,6 @@ jobs:
         rm -rf Crazy-Kubernetes/test
         cp -r test Crazy-Kubernetes/
         cd Crazy-Kubernetes/
+        git add .
         git commit -m "update ks-core helm chart"
         gh pr create --title "The bug is fixed" --body "Everything works again"

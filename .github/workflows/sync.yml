@@ -33,8 +33,8 @@ jobs:
         source-directory: 'Crazy-Kubernetes'
         destination-github-username: 'CottonAcademy'
         destination-repository-name: 'Crazy-Kubernetes'
-        user-email: guotongxue@163.com
-        target-branch: main
+        user-email: ci-bot@kubesphere.io
+        target-branch: master
 
     - run: |
         gh pr create --title "The bug is fixed" --body "Everything works again"

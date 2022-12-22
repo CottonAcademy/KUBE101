@@ -29,7 +29,7 @@ jobs:
         cd Crazy-Kubernetes/
         git add .
         git commit -m "update ks-core helm chart"
-        git push origin master:ks-core --force
+        git push origin master:ks-core
 
     # - name: Pushes to another repository
     #   uses: cpina/github-action-push-to-another-repository@main
@@ -45,6 +45,6 @@ jobs:
 
     - run: |
         cd Crazy-Kubernetes/
-        gh pr create --title "The bug is fixed" --body "Everything works again" --base master  --head ks-core
+        gh pr create --title "The bug is fixed" --body "Everything works again" --head ks-core
       env:
         GH_TOKEN: ${{ github.token }}

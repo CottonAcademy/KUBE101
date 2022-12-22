@@ -34,7 +34,7 @@ jobs:
         destination-github-username: 'CottonAcademy'
         destination-repository-name: 'Crazy-Kubernetes'
         user-email: ci-bot@kubesphere.io
-        target-branch: master
+        target-branch: ks-core
 
     - run: |
         gh pr create --title "The bug is fixed" --body "Everything works again"

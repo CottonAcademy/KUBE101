@@ -47,4 +47,4 @@ jobs:
         cd Crazy-Kubernetes/
         gh pr create --title "The bug is fixed" --body "Everything works again" --head ks-core
       env:
-        GH_TOKEN: ${{ github.token }}
+        GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}

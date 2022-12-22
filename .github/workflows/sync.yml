@@ -17,13 +17,12 @@ jobs:
     - run: |
         git config --global user.email "you@example.com"
         git config --global user.name "Your Name"
-        git clone https://github.com/CottonAcademy/Crazy-Kubernetes.git
+        git clone https://{{ GH_TOKEN }}@github.com/CottonAcademy/Crazy-Kubernetes.git
         rm -rf Crazy-Kubernetes/test
         cp -r test Crazy-Kubernetes/
         cd Crazy-Kubernetes/
         git add .
         git commit -m "update ks-core helm chart"
-        git remote set-url origin https://{{ GH_TOKEN }}@github.com/CottonAcademy/Crazy-Kubernetes.git
         git push origin master:update-ks-core
         gh pr create --title "The bug is fixed" --body "Everything works again"
       env:

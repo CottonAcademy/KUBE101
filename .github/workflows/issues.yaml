@@ -19,6 +19,6 @@ jobs:
             {
                 "msgtype": "markdown",
                 "text": {
-                  "content": "https://github.com/CottonAcademy/KUBE101/issues/${{ github.event.issue.number }}"
+                  "content": "'"https://github.com/CottonAcademy/KUBE101/issues/${{ github.event.issue.number }}"'"
                 }
             }'

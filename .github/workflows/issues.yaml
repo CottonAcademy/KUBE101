@@ -1,0 +1,22 @@
+name: Send Issues
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  send-issues:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: send issues
+      run: |
+        curl "${WECHAT_WEBHOOK}" \
+        -H 'Content-Type: application/json' \
+        -d '
+        {
+             "msgtype": "text",
+             "text": {
+                 "content": "https://github.com/CottonAcademy/KUBE101/issues/${{ github.event.issue.number }}"
+             }
+        }'

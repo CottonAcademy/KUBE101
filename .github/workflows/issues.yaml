@@ -18,7 +18,7 @@ jobs:
             -H 'Content-Type: application/json' \
             -d '
             {
-                "msgtype": "markdown",
+                "msgtype": "text",
                 "text": {
                   "content": "'"$message"'"
                 }

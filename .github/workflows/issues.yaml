@@ -2,7 +2,7 @@ name: Send Issues
 
 on:
   issues:
-    types: [opened]
+    types: [opened， reopened]
 
 jobs:
   send-issues:
@@ -12,11 +12,11 @@ jobs:
     - name: send issues
       run: |
         curl "${WECHAT_WEBHOOK}" \
-        -H 'Content-Type: application/json' \
-        -d '
-        {
-             "msgtype": "text",
-             "text": {
-                 "content": "https://github.com/CottonAcademy/KUBE101/issues/${{ github.event.issue.number }}"
-             }
-        }'
+            -H 'Content-Type: application/json' \
+            -d '
+            {
+                "msgtype": "markdown",
+                "text": {
+                  "content": "https://github.com/CottonAcademy/KUBE101/issues/${{ github.event.issue.number }}"
+                }
+            }'

@@ -13,12 +13,13 @@ jobs:
     steps:
     - name: send issues
       run: |
+        message="https://github.com/CottonAcademy/KUBE101/issues/${{ github.event.issue.number }}"
         curl "${WECHAT_WEBHOOK}" \
             -H 'Content-Type: application/json' \
             -d '
             {
                 "msgtype": "markdown",
                 "text": {
-                  "content": "'"https://github.com/CottonAcademy/KUBE101/issues/${{ github.event.issue.number }}"'"
+                  "content": "'"$message"'"
                 }
             }'

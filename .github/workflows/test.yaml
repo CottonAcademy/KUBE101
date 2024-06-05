@@ -14,23 +14,23 @@ jobs:
       with:
         fetch-depth: 0
 
-    # Way 1
-    - uses: actions/checkout@v2
+    - name: Get all test, doc and src files that have changed
+      id: changed-files-yaml
+      uses: tj-actions/changed-files@v44
       with:
-        ref: pull/${{ github.event.pull_request.number }}/head
-        path: the_pr
-     
-    # Way 2
-    - run: git fetch origin pull/$PR_NUM/head:THE_PR
+        files_yaml: |
+          extension:
+            - '**/extension.yaml'
+        # Optionally set `files_yaml_from_source_file` to read the YAML from a file. e.g `files_yaml_from_source_file: .github/changed-files.yml`
+    - name: Run step if test file(s) change
+      # NOTE: Ensure all outputs are prefixed by the same key used above e.g. `test_(...)` | `doc_(...)` | `src_(...)` when trying to access the `any_changed` output.
+      if: steps.changed-files-yaml.outputs.test_any_changed == 'true'  
       env:
-        PR_NUM: ${{ github.event.pull_request.number }}
-
-    - run: >
-        BASE_SHA: ${{ github.event.pull_request.base.sha }}
- 
-        git --no-pager diff "$BASE_SHA..THE_PR" --name-only --output tmp/name-changed
-
-        cat tmp/name-changed
+        TEST_ALL_CHANGED_FILES: ${{ steps.changed-files-yaml.outputs.test_all_changed_files }}
+      run: |
+        echo "One or more test file(s) has changed."
+        echo "List all the files that have changed: $TEST_ALL_CHANGED_FILES"
+        echo $TEST_ALL_CHANGED_FILES
 
 
     # - run: >

@@ -22,6 +22,7 @@ jobs:
       env:
         ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
       run: |
+        arr=($ALL_CHANGED_FILES)
         for path in "${arr[@]}"; do
           if [[ $(basename "$path") == "extension.yaml" ]]; then
             dir=$(dirname "$path")

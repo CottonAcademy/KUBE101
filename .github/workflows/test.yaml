@@ -29,7 +29,8 @@ jobs:
             echo $dir
           fi
         done
-
+        apt update && apt install tree -y
+        tree .
 
     # - run: >
     #     https://github.com/CottonAcademy/Crazy-Kubernetes.git

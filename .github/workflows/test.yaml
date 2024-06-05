@@ -1,7 +1,7 @@
 on:
-  push:
-    branches:
-      - 'master'
+  # push:
+  #   branches:
+  #     - 'master'
   pull_request:
     branches:
       - 'master'
@@ -14,10 +14,15 @@ jobs:
       with:
         fetch-depth: 0
     
+    # - run: >
+    #     https://github.com/CottonAcademy/Crazy-Kubernetes.git
+    #     rm -rf Crazy-Kubernetes/test
+    #     cp test Crazy-Kubernetes/
+    #     cd Crazy-Kubernetes/
+    #     git commit -t "update ks-core helm chart"
+    #     gh pr create
     - run: >
-        https://github.com/CottonAcademy/Crazy-Kubernetes.git
-        rm -rf Crazy-Kubernetes/test
-        cp test Crazy-Kubernetes/
-        cd Crazy-Kubernetes/
-        git commit -t "update ks-core helm chart"
-        gh pr create
+        file_changed=$(git diff --name-only HEAD~1)
+        unique_charts=$(echo "$file_changed[@]" | sed 's/^"\|"$//g' | awk -F '/' '{print $1}' | uniq)
+        echo $file_changed
+        echo $unique_charts

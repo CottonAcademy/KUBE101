@@ -24,8 +24,10 @@ jobs:
       run: |
         arr=($ALL_CHANGED_FILES)
         for path in "${arr[@]}"; do
-            dir=$(dirname "$path")
-            echo "$dir"
+          dir=$(dirname "$path")
+          if [[ $dir != '.' ]] && [ -f "$dir/extension.yaml" ]; then
+            echo $dir
+          fi
         done
 
 

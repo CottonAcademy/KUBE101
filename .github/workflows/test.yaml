@@ -22,6 +22,10 @@ jobs:
     #     git commit -t "update ks-core helm chart"
     #     gh pr create
     - run: >
+        git fetch origin ${{ github.base_ref }} --depth=1
+        FILES=$(git diff --name-only origin/${{ github.base_ref }})
+        echo "Modified files in this PR: $FILES"
+        echo xxx
         file_changed=$(git diff --name-only HEAD~1)
         unique_charts=$(echo "$file_changed[@]" | sed 's/^"\|"$//g' | awk -F '/' '{print $1}' | uniq)
         echo $file_changed

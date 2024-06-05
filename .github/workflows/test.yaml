@@ -22,11 +22,12 @@ jobs:
       env:
         ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
       run: |
-        file_changed=${ALL_CHANGED_FILES}
-        unique_charts=$(echo "$file_changed[@]" | sed 's/^"\|"$//g' | awk -F '/' '{print $1}' | uniq)
-
-        echo $file_changed
-        echo $unique_chart
+        for path in "${arr[@]}"; do
+          if [[ $(basename "$path") == "extension.yaml" ]]; then
+            dir=$(dirname "$path")
+            echo "$dir"
+          fi
+        done
 
 
     # - run: >

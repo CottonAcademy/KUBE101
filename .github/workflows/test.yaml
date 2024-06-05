@@ -24,10 +24,8 @@ jobs:
       run: |
         arr=($ALL_CHANGED_FILES)
         for path in "${arr[@]}"; do
-          if [[ $(basename "$path") == "extension.yaml" ]]; then
             dir=$(dirname "$path")
             echo "$dir"
-          fi
         done
 
 

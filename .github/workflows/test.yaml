@@ -16,5 +16,5 @@ jobs:
         wget https://dl.k8s.io/release/v1.31.2/bin/linux/amd64/kubeadm
         chmod +x kubeadm
         set +x
-        ./kubeadm config images list | xargs -I {} oras cp {} docker.io/test/$(basename "{}")
+        ./kubeadm config images list | xargs -I {} bash -c 'oras cp {} docker.io/test/$(basename "{}")'
 
